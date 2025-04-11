@@ -1,0 +1,42 @@
+# lib/prpl/pdf/generators/sheet.rb
+module Prpl
+  module Pdf
+    module Generators
+      class Sheet < Base
+        @grid_options: untyped
+
+        @labels: untyped
+
+        GRID_DEFAULTS: { columns: 7, rows: 9 }
+
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> ::String
+
+        private
+
+        def create_sheet_document: () -> untyped
+
+        def generate_sheet_content: (untyped document) -> untyped
+
+        def handle_page_break: (untyped document, untyped index, untyped dimensions) -> (true | false)
+
+        def add_label_to_grid: (untyped document, untyped label, untyped index, untyped dimensions) -> untyped
+
+        def add_image_to_cell: (untyped document, untyped label, untyped dimensions) -> untyped
+
+        def calculate_grid_dimensions: (untyped document) -> { columns: untyped, rows: untyped, label_width: untyped, label_height: untyped, column_gap: untyped, row_gap: untyped }
+
+        def calculate_document_margins: () -> ::Array[untyped]
+
+        def process_labels: () -> (::Array[untyped] | untyped)
+
+        def validate_sheet_data!: () -> (untyped | nil)
+
+        def sheet_context: () -> { total_labels: untyped, grid: untyped, page_size: untyped, margins: untyped }
+      end
+    end
+  end
+end

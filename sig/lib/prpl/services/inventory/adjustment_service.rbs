@@ -1,0 +1,19 @@
+# lib/prpl/inventory/adjuster.rb
+module Prpl
+  module Inventory
+    class Adjuster
+      # Processes a single command string for inventory adjustment
+      # Returns a result message string
+      def self.process_command: (untyped command) -> (untyped | ::String)
+
+      # Processes multiple command strings
+      # Returns an array of result message strings
+      def self.process_commands: (untyped commands) -> (::Array[untyped] | untyped)
+
+      private
+
+      # Finds a variant by SKU, UUID, or Title
+      def self.find_variant: (untyped identifier) -> untyped
+    end
+  end
+end

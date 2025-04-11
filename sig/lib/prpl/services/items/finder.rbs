@@ -1,0 +1,80 @@
+# lib/prpl/services/products/finder.rb
+module Prpl
+  module Services
+    module Items
+      class Finder
+        @scope: untyped
+
+        @options: untyped
+
+        @conditions: untyped
+
+        attr_reader options: untyped
+
+        attr_reader scope: untyped
+
+        def self.find: (scope: untyped, **untyped options) -> untyped
+
+        def initialize: (untyped scope, ?::Hash[untyped, untyped] options) -> void
+
+        def find: () -> untyped
+
+        private
+
+        def apply_filters: () -> untyped
+
+        def build_conditions: () -> untyped
+
+        def execute_query: () -> untyped
+
+        def execute_active_record_query: () -> untyped
+
+        def execute_enumerable_query: () -> untyped
+
+        def add_basic_search_condition: () -> untyped
+
+        def add_category_condition: () -> untyped
+
+        def add_vendor_condition: () -> untyped
+
+        def add_type_condition: () -> untyped
+
+        def add_status_condition: () -> untyped
+
+        def add_published_condition: () -> untyped
+
+        def add_price_conditions: () -> untyped
+
+        def add_stock_condition: () -> untyped
+
+        def add_condition: (untyped field, untyped value) -> untyped
+
+        def evaluate_condition: (untyped product, untyped condition) -> untyped
+
+        def searchable_attributes: (untyped product) -> ::Array[:title | :handle | :vendor | :product_category | :product_type | :variant_skus]
+
+        def get_product_attribute: (untyped product, untyped attr) -> (untyped | untyped | "")
+
+        def get_variant_prices: (untyped product) -> (::Array[untyped] | untyped)
+
+        def product_in_stock?: (untyped product) -> (false | untyped)
+
+        def product_matches_condition?: (untyped product, untyped condition) -> untyped
+
+        def price_filter_present?: () -> untyped
+
+        def requires_variant_join?: () -> untyped
+
+        def validate_scope!: () -> (untyped | nil)
+
+        def build_metadata: (untyped results) -> { total_results: untyped, filters_applied: untyped, query: untyped }
+
+        def get_result_count: (untyped results) -> untyped
+
+        def active_filters: () -> untyped
+
+        def search_context: () -> { query: untyped, filters: untyped, scope_type: untyped }
+      end
+    end
+  end
+end

@@ -1,0 +1,51 @@
+module Prpl
+  class Result
+    @success: untyped
+
+    @data: untyped
+
+    @metadata: untyped
+
+    @error: untyped
+
+    @status: untyped
+
+    attr_reader data: untyped
+
+    attr_reader metadata: untyped
+
+    attr_reader error: untyped
+
+    attr_reader status: untyped
+
+    def self.success: (data: untyped, ?metadata: ::Hash[untyped, untyped]) -> untyped
+
+    def self.error: (untyped message, ?status: untyped?) -> untyped
+
+    def initialize: (success: untyped, ?data: untyped?, ?metadata: ::Hash[untyped, untyped], ?error: untyped?, ?status: untyped?) -> void
+
+    def success?: () -> untyped
+  end
+
+  module Errors
+    class Error < StandardError
+    end
+  end
+end
+
+# Product QR Label Generator with Text
+class ProductQrLabelGenerator < Prpl::Pdf::Generators::Base
+  @url: untyped
+
+  @price: untyped
+
+  @option: untyped
+
+  @handle: untyped
+
+  def initialize: (?::Hash[untyped, untyped] options) -> void
+
+  def generate_pdf: () -> untyped
+
+  def generate_filename: () -> ::String
+end

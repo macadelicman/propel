@@ -1,0 +1,26 @@
+# lib/prpl/services/search/product.rb
+module Prpl
+  module Services
+    module Search
+      class Product < Base
+        def perform: () -> untyped
+
+        private
+
+        def handle_db_operation: () -> untyped
+
+        def build_active_record_query: () -> untyped
+
+        def filter_enumerable: () -> untyped
+
+        def search_conditions: () -> untyped
+
+        def searchable_attributes: () -> untyped
+
+        def search_context: () -> { query: untyped, search_type: untyped, searchable_attributes: untyped, scope_type: untyped }
+
+        def result_context: (untyped results) -> { total_results: untyped, processing_time: untyped }
+      end
+    end
+  end
+end

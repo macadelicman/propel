@@ -1,0 +1,39 @@
+module Prpl
+  module Services
+    module Inventory
+      class Command
+        @command: untyped
+
+        @options: untyped
+
+        @bulk: untyped
+
+        @variant_finder: untyped
+
+        attr_reader command: untyped
+
+        attr_reader options: untyped
+
+        def self.process: (untyped command, **untyped options) -> untyped
+
+        def self.process_bulk: (untyped commands, **untyped options) -> untyped
+
+        def initialize: (untyped command, ?::Hash[untyped, untyped] options) -> void
+
+        def process: () -> untyped
+
+        private
+
+        def process_single_command: () -> untyped
+
+        def process_bulk_command: () -> untyped
+
+        def validate_configuration!: () -> untyped
+
+        def log_adjustment_result: (untyped adjustment_data, untyped result) -> untyped
+
+        def build_bulk_result: (untyped results) -> untyped
+      end
+    end
+  end
+end

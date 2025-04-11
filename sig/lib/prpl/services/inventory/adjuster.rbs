@@ -1,0 +1,51 @@
+module Prpl
+  module Services
+    module Inventory
+      class Adjuster
+        @variant: untyped
+
+        @quantity: untyped
+
+        @options: untyped
+
+        @identifier: untyped
+
+        @variant_finder: untyped
+
+        attr_reader variant: untyped
+
+        attr_reader quantity: untyped
+
+        attr_reader options: untyped
+
+        def self.adjust: (variant: untyped, quantity: untyped, **untyped options) -> untyped
+
+        def self.adjust_by_identifier: (identifier: untyped, quantity: untyped, variant_finder: untyped, **untyped options) -> untyped
+
+        def initialize: (untyped variant, untyped quantity, ?::Hash[untyped, untyped] options) -> void
+
+        def adjust: () -> untyped
+
+        def adjust_by_identifier: () -> untyped
+
+        private
+
+        def validate_quantity!: () -> (untyped | nil)
+
+        def find_variant: () -> untyped
+
+        def calculate_new_quantity: () -> untyped
+
+        def current_quantity: () -> (0 | untyped)
+
+        def update_inventory: (untyped new_quantity) -> (false | untyped)
+
+        def build_success_result: (untyped new_quantity) -> untyped
+
+        def variant_sku: () -> (nil | untyped)
+
+        def adjustment_context: () -> { variant_sku: untyped, adjustment: untyped, current_quantity: untyped }
+      end
+    end
+  end
+end

@@ -1,0 +1,89 @@
+module Prpl
+  module Qrcode
+    class BaseGenerator
+      @output_dir: untyped
+
+      include Constants
+
+      attr_reader output_dir: untyped
+
+      def initialize: (?untyped output_dir) -> void
+
+      def generate_all: () -> untyped
+
+      private
+
+      def generate_for_variant: (untyped variant) -> untyped
+
+      def output_path: (untyped variant) -> untyped
+    end
+
+    class QrCodeData
+      @variant: untyped
+
+      @validator: untyped
+
+      @inventory: untyped
+
+      attr_reader variant: untyped
+
+      attr_reader inventory: untyped
+
+      attr_reader validator: untyped
+
+      def initialize: (untyped variant, untyped validator) -> void
+
+      def product_url: () -> untyped
+
+      def price_text: () -> ::String
+
+      def display_text: () -> untyped
+
+      private
+
+      def log_inventory_details: () -> untyped
+    end
+
+    class QrCodeImage
+      @url: untyped
+
+      attr_reader url: untyped
+
+      def initialize: (untyped url) -> void
+
+      def generate: () -> untyped
+
+      private
+
+      def generate_qr_code: () -> untyped
+
+      def generate_png: (untyped qr) -> untyped
+    end
+
+    class QrCodePdfGenerator
+      @qr_image: untyped
+
+      @qr_data: untyped
+
+      IMAGE_WIDTH: 300
+
+      FONT_SIZE: 24
+
+      def initialize: (untyped qr_image, untyped qr_data) -> void
+
+      def generate_pdf: (untyped output_path) -> untyped
+
+      private
+
+      def create_temp_file: (untyped png_data) -> untyped
+
+      def generate_pdf_with_image: (untyped temp_file, untyped output_path) -> untyped
+
+      def add_centered_image: (untyped pdf, untyped temp_file) -> untyped
+
+      def add_text: (untyped pdf) -> untyped
+
+      def cleanup_temp_file: (untyped temp_file) -> untyped
+    end
+  end
+end

@@ -1,0 +1,15 @@
+tool_type: shopify graphql api mutation
+function:
+  name: inventory_management-update_inventory
+  description: Inventory Management Service => Update inventory with new quantity for specific product
+  parameters:
+    type: object
+    properties:
+      sku:
+        type: string
+        description: Product SKU number
+      quantity:
+        type: number
+        description: New quantity to set # <%= thnk_product.description_html %>
+    required: ["sku", "quantity"] # <%= thnk_variant.variant_sku %> <%= thnk_variant.variant_inventory_quantity %>
+  template: # <%= Prpl::Config::Templates::Inventory::Mutations::Update::Item.update_item %>

@@ -1,0 +1,28 @@
+module Prpl
+  module Config
+    module Templates
+      module Inventory
+        module Queries
+          class GetStockOfProduct
+            @client: untyped
+
+            GRAPHQL_QUERY: "query GetStockOfProduct($productId: ID!) {\n  product(id: $productId) {\n    id\n    title\n    variants(first: 100) {\n      edges {\n        node {\n          id\n          title\n          inventoryQuantity\n          inventoryItem {\n            id\n            tracked\n          }\n          inventoryLevels(first: 10) {\n            edges {\n              node {\n                available\n                location {\n                  id\n                  name\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+
+            attr_reader client: untyped
+
+            # Initializes the GetStockOfProduct query class with a GraphQL client.
+            #
+            # @param client [Object] A GraphQL client instance to execute queries.
+            def initialize: (untyped client) -> void
+
+            # Fetches stock information for a given product.
+            #
+            # @param product_id [String] The Shopify GraphQL ID of the product.
+            # @return [Hash, nil] The structured stock data or nil if not found.
+            def fetch_stock: (untyped product_id) -> untyped
+          end
+        end
+      end
+    end
+  end
+end

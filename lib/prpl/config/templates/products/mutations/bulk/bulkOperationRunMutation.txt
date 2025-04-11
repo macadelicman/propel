@@ -1,0 +1,20 @@
+~~> mutation reference
+mutation bulkOperationRunMutation($clientIdentifier: String, $mutation: String!, $stagedUploadPath: String!) {
+  bulkOperationRunMutation(clientIdentifier: $clientIdentifier, mutation: $mutation, stagedUploadPath: $stagedUploadPath) {
+    bulkOperation {
+      # BulkOperation fields
+    }
+    userErrors {
+      field
+      message
+    }
+  }
+}
+
+~~> variables
+{
+  "clientIdentifier": "<your-clientIdentifier>",
+  "mutation": "<your-mutation>",
+  "stagedUploadPath": "<your-stagedUploadPath>"
+}
+

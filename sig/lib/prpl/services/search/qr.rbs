@@ -1,0 +1,32 @@
+# lib/prpl/services/search/qr.rb
+module Prpl
+  module Services
+    module Search
+      class Qr < Base
+        DEFAULT_LIMIT: 1
+
+        def perform: () -> untyped
+
+        private
+
+        def find_by_qr: () -> untyped
+
+        def determine_search_strategy: () -> untyped
+
+        def basic_search: () -> untyped
+
+        def handle_successful_search: (untyped result) -> untyped
+
+        def handle_empty_search: () -> untyped
+
+        def build_redirect_url: (untyped result) -> untyped
+
+        def default_redirect_url: (untyped result) -> ::String
+
+        def search_context: () -> { query: untyped, search_type: :qr, matcher_type: untyped, match_field: untyped }
+
+        def result_context: (untyped result) -> untyped
+      end
+    end
+  end
+end

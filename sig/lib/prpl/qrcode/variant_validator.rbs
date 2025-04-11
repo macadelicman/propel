@@ -1,0 +1,29 @@
+module Prpl
+  module Qrcode
+    class VariantValidator
+      @variant: untyped
+
+      @inventory: untyped
+
+      include Constants
+
+      def initialize: (untyped variant) -> void
+
+      def valid?: () -> (false | untyped)
+
+      def variant_code: () -> (nil | ::String)
+
+      private
+
+      def valid_format?: () -> (false | untyped)
+
+      def valid_color?: () -> untyped
+
+      def valid_size?: () -> untyped
+
+      def color_code: () -> untyped
+
+      def size_code: () -> untyped
+    end
+  end
+end

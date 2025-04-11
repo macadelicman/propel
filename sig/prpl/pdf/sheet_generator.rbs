@@ -1,0 +1,10 @@
+# lib/prpl/pdf/sheet_generator.rb
+module Prpl
+  module Pdf
+    class SheetGenerator < BaseGenerator
+      # Generates a sheet of barcodes QR codes for a variant
+      # Returns the PDF data as a binary string
+      def self.generate_barcode_qr_sheet: (untyped variant, ?::Hash[untyped, untyped] margins) -> untyped
+    end
+  end
+end

@@ -1,0 +1,42 @@
+module Prpl
+  module Config
+    module Templates
+      module Inventory
+        module Mutations
+          module Adjust
+            class Quantities
+              @client: untyped
+
+              GRAPHQL_MUTATION: "mutation inventoryAdjustQuantities($input: InventoryAdjustQuantitiesInput!) {\n  inventoryAdjustQuantities(input: $input) {\n    userErrors {\n      field\n      message\n    }\n    inventoryAdjustmentGroup {\n      createdAt\n      reason\n      referenceDocumentUri\n      changes {\n        name\n        delta\n      }\n    }\n  }\n}\n"
+
+              attr_reader client: untyped
+
+              # Initializes the Quantities class with a GraphQL client.
+              #
+              # @param client [Object] a GraphQL client instance to execute queries.
+              def initialize: (untyped client) -> void
+
+              # Adjusts inventory quantity for a given item at a specific location.
+              #
+              # @param inventory_item_id [String] the ID of the inventory item.
+              # @param location_id [String] the ID of the location where the adjustment occurs.
+              # @param delta [Integer] the quantity change (positive or negative).
+              # @param reference_document_uri [String] the reference document URI for tracking.
+              #
+              # @return [Hash] the response from the GraphQL API.
+              def adjust_quantity: (inventory_item_id: untyped, location_id: untyped, delta: untyped, reference_document_uri: untyped) -> untyped
+
+              private
+
+              # Executes the GraphQL mutation with the given input.
+              #
+              # @param input [Hash] the mutation input.
+              # @return [Hash] the response from the GraphQL API.
+              def execute_mutation: (untyped input) -> untyped
+            end
+          end
+        end
+      end
+    end
+  end
+end

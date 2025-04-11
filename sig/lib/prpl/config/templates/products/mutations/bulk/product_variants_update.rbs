@@ -1,0 +1,44 @@
+module Prpl
+  module Config
+    module Templates
+      module Products
+        module Mutations
+          module Bulk
+            class ProductVariantsUpdate
+              @client: untyped
+
+              GRAPHQL_MUTATION: "mutation ProductVariantsBulkUpdate($productId: ID!, $variants: [ProductVariantInput!]!) {\n  productVariantsBulkUpdate(productId: $productId, variants: $variants) {\n    product {\n      id\n    }\n    productVariants {\n      id\n      metafields(first: 2) {\n        edges {\n          node {\n            namespace\n            key\n            value\n          }\n        }\n      }\n    }\n    userErrors {\n      field\n      message\n    }\n  }\n}\n"
+
+              attr_reader client: untyped
+
+              # Initializes the ProductVariantsUpdate mutation class with a GraphQL client.
+              #
+              # @param client [Object] A GraphQL client instance to execute mutations.
+              def initialize: (untyped client) -> void
+
+              # Updates product variants in bulk.
+              #
+              # @param product_id [String] The ID of the product to update variants for.
+              # @param variants [Array<Hash>] An array of variant data to update.
+              # @return [Hash] The parsed JSON response from the GraphQL API.
+              def update: (product_id: untyped, variants: untyped) -> untyped
+
+              # Processes the response and returns a structured result.
+              #
+              # @param response [Hash] The raw response from the GraphQL API.
+              # @return [Hash] A structured result with success status, product data, and any errors.
+              def process_response: (untyped response) -> ({ success: false, errors: ::Array[{ message: "Unknown error occurred" }], product: nil, variants: ::Array[untyped] } | { success: untyped, errors: untyped, product: untyped, variants: untyped })
+
+              # Updates product variants and processes the response.
+              #
+              # @param product_id [String] The ID of the product to update variants for.
+              # @param variants [Array<Hash>] An array of variant data to update.
+              # @return [Hash] A structured result with success status, product data, and any errors.
+              def update_and_process: (product_id: untyped, variants: untyped) -> untyped
+            end
+          end
+        end
+      end
+    end
+  end
+end

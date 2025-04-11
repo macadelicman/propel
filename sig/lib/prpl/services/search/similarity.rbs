@@ -1,0 +1,36 @@
+# lib/prpl/services/search/similarity.rb
+module Prpl
+  module Services
+    module Search
+      class Similarity < Base
+        DEFAULT_LIMIT: 5
+
+        def perform: () -> untyped
+
+        private
+
+        def validate_configuration!: () -> (untyped | nil)
+
+        def find_similar_products: () -> untyped
+
+        def initialize_embeddings: () -> untyped
+
+        def fetch_products: () -> untyped
+
+        def add_products_to_vectorstore: (untyped products, untyped vs) -> untyped
+
+        def generate_product_content: (untyped product) -> untyped
+
+        def get_product_attribute: (untyped product, untyped attr) -> (nil | untyped)
+
+        def return_results: (untyped results, untyped products) -> untyped
+
+        def search_limit: () -> untyped
+
+        def search_context: () -> { query: untyped, search_type: :similarity, limit: untyped, embeddings_model: untyped }
+
+        def result_context: (untyped results) -> { total_results: untyped, processing_time: untyped }
+      end
+    end
+  end
+end

@@ -1,0 +1,57 @@
+module Prpl
+  module Pdf
+    module Generators
+      class Base
+        @options: untyped
+
+        @layout_options: untyped
+
+        @temp_files: untyped
+
+        POINTS_PER_INCH: 72
+
+        VALID_PAGE_SIZES: ::Array[:A4 | :A3 | :letter | :legal]
+
+        DEFAULT_MARGIN: 40
+
+        DEFAULT_LAYOUT_OPTIONS: { column_gap: ::Float, row_gap: ::Float, top_margin: ::Float, bottom_margin: ::Float, left_margin: ::Float, right_margin: ::Float }
+
+        attr_reader options: untyped
+
+        attr_reader layout_options: untyped
+
+        def self.generate: (**untyped options) -> untyped
+
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate: () -> untyped
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> untyped
+
+        def create_document: (?page_size: ::Symbol, ?margin: untyped) -> untyped
+
+        def create_temp_file: (?prefix: ::String, ?suffix: ::String) -> untyped
+
+        def write_image_to_temp_file: (untyped image_data) -> untyped
+
+        def points_from_inches: (untyped inches) -> untyped
+
+        def sanitize_gap: (untyped value) -> untyped
+
+        def process_margins: (untyped margin) -> untyped
+
+        def process_layout_options: () -> untyped
+
+        private
+
+        def validate_options!: () -> (untyped | nil)
+
+        def cleanup_temp_files: () -> untyped
+
+        def generation_context: () -> { generator: untyped, page_size: untyped, layout_options: untyped }
+      end
+    end
+  end
+end

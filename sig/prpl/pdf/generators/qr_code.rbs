@@ -1,0 +1,65 @@
+# lib/prpl/pdf/generators/qr_code.rb
+module Prpl
+  module Pdf
+    module Generators
+      class QrCode < Base
+        @qr_size: untyped
+
+        DEFAULT_QR_SIZE: ::Array[450]
+
+        DEFAULT_MARGIN: ::Array[40]
+
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> ::String
+
+        private
+
+        def add_qr_code: (untyped document) -> untyped
+
+        def add_details: (untyped document) -> untyped
+
+        def show_details?: () -> untyped
+
+        def validate_qr_data!: () -> (untyped | nil)
+
+        def variant_identifier: () -> untyped
+
+        def variant_sku: () -> untyped
+
+        def variant_price: () -> untyped
+
+        def qr_code_data: () -> untyped
+
+        def qr_context: () -> { variant_identifier: untyped, variant_sku: untyped, has_qr: untyped, show_details: untyped, qr_size: untyped, page_size: untyped }
+      end
+
+      # Specialized QR Roll generator for continuous printing
+      class QrCodeRoll < QrCode
+        @stock_quantity: untyped
+
+        DEFAULT_ROLL_MARGIN: ::Array[2]
+
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> ::String
+
+        private
+
+        def create_roll_document: () -> untyped
+
+        def generate_roll_labels: (untyped document) -> untyped
+
+        def add_roll_label: (untyped document, untyped image_path) -> untyped
+
+        def calculate_dimensions: (untyped document) -> { usable_width: untyped, usable_height: untyped, qr_size: untyped, x_position: untyped, y_position: untyped }
+
+        def roll_context: () -> untyped
+      end
+    end
+  end
+end

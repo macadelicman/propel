@@ -1,0 +1,29 @@
+# lib/prpl/pdf/generators/roll_label.rb
+module Prpl
+  module PDF
+    class RollLabel
+      @variant: untyped
+
+      # Assume each variant belongs to a product; this is our collection target.
+      @product: untyped
+
+      # You can use a constant defined in your gem's constants file;
+      # if not, define it here.
+      POINTS_PER_INCH: 72
+
+      def initialize: (untyped variant) -> void
+
+      # Returns the rendered PDF data as a string.
+      def generate: () -> untyped
+
+      private
+
+      # Iterate through each variant of the product, download the QR image,
+      # and create one label per unit in stock.
+      def collect_labels: () -> untyped
+
+      # Clean up all temporary files used for labels.
+      def cleanup_labels: (untyped labels) -> untyped
+    end
+  end
+end

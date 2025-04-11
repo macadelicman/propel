@@ -1,0 +1,37 @@
+module Prpl
+  module Services
+    module Search
+      class Base
+        @query: untyped
+
+        @options: untyped
+
+        @scope: untyped
+
+        @start_time: untyped
+
+        attr_reader query: untyped
+
+        attr_reader options: untyped
+
+        attr_reader scope: untyped
+
+        def self.perform: (query: untyped, **untyped options) -> untyped
+
+        def initialize: (untyped query, **untyped options) -> void
+
+        def validate_scope!: () -> (untyped | nil)
+
+        def build_metadata: (untyped results) -> untyped
+
+        def calculate_processing_time: () -> untyped
+
+        def get_result_count: (untyped results) -> untyped
+
+        def empty_result: () -> untyped
+
+        def log_error: (untyped error, ?::Hash[untyped, untyped] context) -> untyped
+      end
+    end
+  end
+end

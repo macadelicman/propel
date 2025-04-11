@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+require 'optparse'
+
+# Default directories for the source Ruby files and the output RBS files.
+options = {
+  src: 'lib',
+  out: 'sig'
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: generate_rbs.rb [options]"
+
+  opts.on("-sDIR", "--src=DIR", "Source directory containing Ruby files (default: lib)") do |dir|
+    options[:src] = dir
+  end
+
+  opts.on("-oDIR", "--out=DIR", "Output directory for RBS files (default: sig)") do |dir|
+    options[:out] = dir
+  end
+end.parse!
+
+# Normalize the source directory by removing any trailing slash.
+src = options[:src].chomp('/')
+
+# Ensure the output directory exists.
+FileUtils.mkdir_p(options[:out])
+
+# Recursively find Ruby files in the source directory.
+Dir.glob(File.join(src, "**", "*.rb")).each do |ruby_file|
+  # Compute the file's relative path within the source directory.
+  relative_path = ruby_file.sub(/^#{Regexp.escape(src)}\/?/, '')
+
+  # Create the corresponding output file path with the .rbs extension.
+  output_file = File.join(options[:out], relative_path.sub(/\.rb$/, '.rbs'))
+
+  # Ensure the output directory structure exists for this file.
+  FileUtils.mkdir_p(File.dirname(output_file))
+
+  puts "Generating RBS for #{ruby_file} -> #{output_file}"
+
+  # Generate the RBS content using the RBS tool.
+  cmd = "rbs prototype rb #{ruby_file}"
+  rbs_content = `#{cmd}`
+
+  if $?.success?
+    File.write(output_file, rbs_content)
+  else
+    warn "Error generating RBS for #{ruby_file}"
+  end
+end

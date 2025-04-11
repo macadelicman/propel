@@ -1,0 +1,3 @@
+class Object
+  def extract_pages_with_pdftotext: (untyped pdf_file) -> untyped
+end

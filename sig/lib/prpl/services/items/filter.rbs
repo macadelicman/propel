@@ -1,0 +1,62 @@
+# lib/prpl/services/products/filter.rb
+module Prpl
+  module Services
+    module Items
+      class Filter
+        @scope: untyped
+
+        @criteria: untyped
+
+        attr_reader scope: untyped
+
+        attr_reader criteria: untyped
+
+        def self.apply: (scope: untyped, **untyped criteria) -> untyped
+
+        def initialize: (untyped scope, ?::Hash[untyped, untyped] criteria) -> void
+
+        def apply: () -> untyped
+
+        private
+
+        def apply_filters: () -> untyped
+
+        def apply_category_filter: (untyped result) -> untyped
+
+        def apply_vendor_filter: (untyped result) -> untyped
+
+        def apply_type_filter: (untyped result) -> untyped
+
+        def apply_status_filter: (untyped result) -> untyped
+
+        def apply_published_filter: (untyped result) -> untyped
+
+        def apply_price_filter: (untyped result) -> untyped
+
+        def apply_stock_filter: (untyped result) -> untyped
+
+        def filter_by_attribute: (untyped result, untyped attribute, untyped value) -> untyped
+
+        def get_variant_prices: (untyped product) -> (::Array[untyped] | untyped)
+
+        def product_in_stock?: (untyped product) -> (false | untyped)
+
+        def price_filter_needed?: () -> untyped
+
+        def validate_scope!: () -> (untyped | nil)
+
+        def build_metadata: (untyped results) -> untyped
+
+        def get_result_count: (untyped results) -> untyped
+
+        def active_filters: () -> untyped
+
+        def price_filter_info: () -> (::Hash[untyped, untyped] | { price_filter: { min: untyped, max: untyped } })
+
+        def price_range_info: () -> (nil | { min: untyped, max: untyped })
+
+        def filter_context: () -> { scope_type: untyped, filters: untyped }
+      end
+    end
+  end
+end

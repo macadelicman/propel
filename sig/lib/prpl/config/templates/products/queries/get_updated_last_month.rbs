@@ -1,0 +1,27 @@
+module Prpl
+  module Config
+    module Templates
+      module Products
+        module Queries
+          class GetUpdatedLastMonth
+            @client: untyped
+
+            GRAPHQL_QUERY: "query GetUpdatedLastMonth($query: String!, $first: Int! = 100, $cursor: String) {\n  products(query: $query, first: $first, after: $cursor) {\n    edges {\n      cursor\n      node {\n        id\n        title\n        updatedAt\n        featuredMedia {\n          preview {\n            image {\n              url\n            }\n          }\n        }\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+
+            attr_reader client: untyped
+
+            # Initializes the GetUpdatedLastMonth query class with a GraphQL client.
+            #
+            # @param client [Object] A GraphQL client instance to execute queries.
+            def initialize: (untyped client) -> void
+
+            # Fetches products updated in the last month.
+            #
+            # @return [Array<Hash>] An array of transformed product nodes.
+            def fetch_updated_last_month: () -> untyped
+          end
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,11 @@
+module Prpl
+  module Qrcode
+    module Constants
+      COLORS: { "R" => "Red", "Bl" => "Blue", "Y" => "Yellow", "G" => "Green", "P" => "Purple", "O" => "Orange", "Br" => "Brown", "Bk" => "Black" }
+
+      SIZES: { "SM" => "Small", "MD" => "Medium", "LG" => "Large", "XL" => "Extra Large" }
+
+      VALID_VARIANTS: untyped
+    end
+  end
+end

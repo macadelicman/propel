@@ -1,0 +1,49 @@
+module Prpl
+  module Config
+    module Templates
+      module Inventory
+        module Mutations
+          module Set
+            class OnHandQuantities
+              @client: untyped
+
+              GRAPHQL_MUTATION: "mutation inventorySetOnHandQuantities($input: InventorySetOnHandQuantitiesInput!) {\n  inventorySetOnHandQuantities(input: $input) {\n    userErrors {\n      field\n      message\n    }\n    inventoryAdjustmentGroup {\n      createdAt\n      reason\n      referenceDocumentUri\n      changes {\n        name\n        delta\n      }\n    }\n  }\n}\n"
+
+              attr_reader client: untyped
+
+              # Initializes the OnHandQuantities class with a GraphQL client.
+              #
+              # @param client [Object] A GraphQL client instance to execute queries.
+              def initialize: (untyped client) -> void
+
+              # Updates inventory quantities for multiple items.
+              #
+              # @param reason [String] The reason for the update.
+              # @param reference_uri [String] The reference document URI.
+              # @param quantities [Array<Hash>] Array of inventory quantity updates.
+              #
+              # @return [Hash] The response from the GraphQL API.
+              def update_quantities: (reason: untyped, reference_uri: untyped, quantities: untyped) -> untyped
+
+              private
+
+              # Builds the input hash for the mutation.
+              #
+              # @param reason [String] The reason for the update.
+              # @param reference_uri [String] The reference document URI.
+              # @param quantities [Array<Hash>] The quantities to update.
+              # @return [Hash] The formatted input hash.
+              def build_input: (untyped reason, untyped reference_uri, untyped quantities) -> { "input" => { "reason" => untyped, "referenceDocumentUri" => untyped, "setQuantities" => untyped } }
+
+              # Executes the GraphQL mutation with the given input.
+              #
+              # @param variables [Hash] The mutation input variables.
+              # @return [Hash] The response from the GraphQL API.
+              def execute_mutation: (untyped variables) -> untyped
+            end
+          end
+        end
+      end
+    end
+  end
+end

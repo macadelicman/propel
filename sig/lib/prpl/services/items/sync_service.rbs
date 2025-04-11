@@ -1,0 +1,41 @@
+module Prpl
+  module Services
+    module Items
+      class SyncService
+        @logger: untyped
+
+        attr_reader logger: untyped
+
+        def initialize: (?logger: untyped) -> void
+
+        def sync: (untyped items_data) -> ({ status: "error", message: "No items provided" } | untyped)
+
+        def fetch_shopify_items: () -> untyped
+
+        private
+
+        def extract_items: (untyped params) -> (untyped | ::Array[untyped])
+
+        def validate_item_data: (untyped item_data) -> untyped
+
+        def initialize_results: () -> { total_processed: 0, success_count: 0, error_count: 0, errors: ::Array[untyped], categories_synced: untyped, barcodes_synced: ::Array[untyped], status: "success" }
+
+        def process_item_sync: (untyped item_data, untyped results) -> untyped
+
+        def sync_images_to_db: (untyped item_id, untyped images) -> untyped
+
+        def sync_item_to_db: (untyped item_data) -> untyped
+
+        def sync_variants_to_db: (untyped item_id, untyped variants_data) -> (nil | untyped)
+
+        def sync_selected_options: (untyped variant_id, untyped options_data) -> (nil | untyped)
+
+        def handle_sync_error: (untyped results, untyped item_data, untyped error) -> untyped
+
+        def render_sync_results: (untyped results) -> { status: untyped, message: untyped, details: { total_processed: untyped, success_count: untyped, error_count: untyped, errors: untyped, categories_synced: untyped, barcodes_synced: untyped } }
+
+        def sync_status_message: (untyped results) -> (::String | ::String | "Failed to sync items")
+      end
+    end
+  end
+end

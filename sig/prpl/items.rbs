@@ -1,0 +1,8 @@
+module Prpl
+  module Config
+    module Templates
+      module Items
+      end
+    end
+  end
+end

@@ -1,0 +1,23 @@
+module Prpl
+  module Services
+    module Inventory
+      class Parser
+        @input: untyped
+
+        ADJUSTMENT_REGEX: ::Regexp
+
+        BULK_SEPARATOR: ::Regexp
+
+        def self.parse: (untyped command) -> untyped
+
+        def self.parse_bulk: (untyped commands) -> untyped
+
+        def initialize: (untyped input) -> void
+
+        def parse: () -> untyped
+
+        def parse_bulk: () -> untyped
+      end
+    end
+  end
+end

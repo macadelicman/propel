@@ -1,0 +1,38 @@
+# lib/prpl/pdf/generators/single_label.rb
+module Prpl
+  module Pdf
+    module Generators
+      class SingleLabel < Base
+        DEFAULT_IMAGE_SIZE: ::Array[450]
+
+        DEFAULT_MARGIN: ::Array[40]
+
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> ::String
+
+        private
+
+        def add_qr_code: (untyped document) -> untyped
+
+        def add_variant_details: (untyped document) -> untyped
+
+        def validate_variant_data!: () -> (untyped | nil)
+
+        def variant_identifier: () -> untyped
+
+        def variant_sku: () -> untyped
+
+        def variant_price: () -> untyped
+
+        def qr_code_data: () -> untyped
+
+        def format_currency: (untyped amount) -> ("$0.00" | untyped)
+
+        def label_context: () -> { variant_identifier: untyped, variant_sku: untyped, has_qr_code: untyped, page_size: :letter }
+      end
+    end
+  end
+end

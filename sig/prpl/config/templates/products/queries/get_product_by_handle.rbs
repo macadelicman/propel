@@ -1,0 +1,29 @@
+module Prpl
+  module Config
+    module Templates
+      module Products
+        module Queries
+          class GetProductByHandle
+            @client: untyped
+
+            # GraphQL query for fetching product by handle with variables
+            PRODUCT_QUERY: "query GetProductByHandle($handle: String!) {\n  productByHandle(handle: $handle) {\n    id\n    title\n  }\n}\n"
+
+            attr_reader client: untyped
+
+            # Initializes the GetProductByHandle query class with a GraphQL client.
+            #
+            # @param client [Object] A GraphQL client instance to execute queries.
+            def initialize: (untyped client) -> void
+
+            # Fetches a product by handle.
+            #
+            # @param handle [String] The product handle to look up.
+            # @return [Hash] The parsed JSON response from the GraphQL API.
+            def fetch_product: (untyped handle) -> untyped
+          end
+        end
+      end
+    end
+  end
+end

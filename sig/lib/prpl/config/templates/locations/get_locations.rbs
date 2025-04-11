@@ -1,0 +1,32 @@
+module Prpl
+  module Config
+    module Templates
+      module Locations
+        class GetLocations
+          @client: untyped
+
+          GRAPHQL_QUERY: "query GetLocations($first: Int = 20, $cursor: String) {\n  locations(first: $first, after: $cursor) {\n    edges {\n      cursor\n      node {\n        id\n        name\n        address {\n          address1\n          address2\n          city\n          province\n          zip\n          country\n        }\n        isActive\n        fulfillsOnlineOrders\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+
+          attr_reader client: untyped
+
+          # Initializes the GetLocations query class with a GraphQL client.
+          #
+          # @param client [Object] A GraphQL client instance to execute queries.
+          def initialize: (untyped client) -> void
+
+          # Fetches a single page of locations.
+          #
+          # @param first [Integer] Number of locations to fetch per page.
+          # @param cursor [String, nil] The pagination cursor; pass nil for the first page.
+          # @return [Hash] The parsed JSON response from the GraphQL API.
+          def fetch_page: (?first: ::Integer, ?cursor: untyped?) -> untyped
+
+          # Fetches all locations using pagination.
+          #
+          # @return [Array<Hash>] An array of transformed location nodes.
+          def fetch_all: () -> untyped
+        end
+      end
+    end
+  end
+end

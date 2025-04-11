@@ -1,0 +1,10 @@
+module Prpl
+  module Config
+    module Templates
+      module Products
+        module Queries
+        end
+      end
+    end
+  end
+end

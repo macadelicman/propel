@@ -1,0 +1,62 @@
+module Prpl
+  module Pdf
+    module Generators
+      class Barcode < Base
+        @barcode_options: untyped
+
+        BARCODE_OPTIONS: { height: 50, xdim: 2, margin: 5 }
+
+        BARCODE_DEFAULTS: { width: 200, text_size: { sku: 12, price: 16 } }
+
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> ::String
+
+        private
+
+        def add_barcode: (untyped document) -> untyped
+
+        def generate_barcode_image: (untyped barcode) -> untyped
+
+        def add_details: (untyped document) -> untyped
+
+        def calculate_margins: () -> untyped
+
+        def validate_barcode_data!: () -> (untyped | nil)
+
+        def barcode_content: () -> untyped
+
+        def variant_identifier: () -> untyped
+
+        def variant_sku: () -> untyped
+
+        def variant_price: () -> untyped
+
+        def qr_code_data: () -> untyped
+
+        def barcode_context: () -> { variant_identifier: untyped, variant_sku: untyped, has_barcode: untyped, has_qr: untyped, barcode_options: untyped }
+      end
+
+      # Specialized version for Barcode QR combinations
+      class BarcodeQr < Barcode
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> ::String
+
+        private
+
+        def add_qr_code: (untyped document) -> untyped
+
+        def add_price_to_page: (untyped document) -> untyped
+
+        def calculate_dimensions: (untyped document) -> { usable_width: untyped, usable_height: untyped, qr_size: untyped, x_position: untyped, y_position: untyped }
+
+        def validate_qr_data!: () -> (untyped | nil)
+      end
+    end
+  end
+end

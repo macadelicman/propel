@@ -1,0 +1,46 @@
+# lib/prpl/pdf/generators/roll_label.rb
+module Prpl
+  module Pdf
+    module Generators
+      class RollLabel < Base
+        @stock_quantity: untyped
+
+        DEFAULT_MARGIN: ::Array[2]
+
+        LABEL_HEIGHT_RATIO: ::Float
+
+        def initialize: (?::Hash[untyped, untyped] options) -> void
+
+        def generate_pdf: () -> untyped
+
+        def generate_filename: () -> ::String
+
+        private
+
+        def create_roll_document: () -> untyped
+
+        def generate_labels: (untyped document) -> untyped
+
+        def add_image_to_page: (untyped document, untyped image_path) -> untyped
+
+        def add_price_to_page: (untyped document) -> untyped
+
+        def calculate_dimensions: (untyped document) -> { usable_width: untyped, usable_height: untyped, qr_size: untyped, x_position: untyped, y_position: untyped }
+
+        def validate_required_data!: () -> untyped
+
+        def variant_identifier: () -> untyped
+
+        def variant_price: () -> untyped
+
+        def image_data: () -> untyped
+
+        def price_text: () -> ("" | untyped)
+
+        def format_currency: (untyped amount) -> untyped
+
+        def roll_context: () -> { variant_identifier: untyped, stock_quantity: untyped, has_image: untyped, has_price: untyped }
+      end
+    end
+  end
+end

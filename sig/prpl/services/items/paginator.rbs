@@ -1,0 +1,59 @@
+module Prpl
+  module Services
+    module Items
+      class Paginator
+        @scope: untyped
+
+        @options: untyped
+
+        @page: untyped
+
+        @per_page: untyped
+
+        @total_count: untyped
+
+        DEFAULT_PER_PAGE: 10
+
+        DEFAULT_PAGE: 1
+
+        attr_reader scope: untyped
+
+        attr_reader options: untyped
+
+        def self.paginate: (scope: untyped, **untyped options) -> untyped
+
+        def initialize: (untyped scope, ?::Hash[untyped, untyped] options) -> void
+
+        def paginate: () -> untyped
+
+        private
+
+        def paginate_scope: () -> untyped
+
+        def paginate_active_record: () -> untyped
+
+        def paginate_enumerable: () -> untyped
+
+        def offset: () -> untyped
+
+        def total_count: () -> untyped
+
+        def total_pages: () -> untyped
+
+        def build_metadata: (untyped results) -> { pagination: { current_page: untyped, per_page: untyped, total_pages: untyped, total_count: untyped, offset: untyped, next_page: untyped, prev_page: untyped, first_page: untyped, last_page: untyped } }
+
+        def next_page: () -> (nil | untyped)
+
+        def prev_page: () -> (nil | untyped)
+
+        def first_page?: () -> untyped
+
+        def last_page?: () -> untyped
+
+        def validate_scope!: () -> (untyped | nil)
+
+        def pagination_context: () -> { page: untyped, per_page: untyped, total_count: untyped, scope_type: untyped }
+      end
+    end
+  end
+end

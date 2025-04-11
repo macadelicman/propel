@@ -1,0 +1,41 @@
+module Prpl
+  module Config
+    module Templates
+      module Inventory
+        module Mutations
+          module Update
+            class Item
+              @client: untyped
+
+              GRAPHQL_MUTATION: "mutation inventoryItemUpdate($id: ID!, $input: InventoryItemInput!) {\n  inventoryItemUpdate(id: $id, input: $input) {\n    inventoryItem {\n      id\n      unitCost {\n        amount\n      }\n      tracked\n      countryCodeOfOrigin\n      provinceCodeOfOrigin\n      harmonizedSystemCode\n      countryHarmonizedSystemCodes(first: 1) {\n        edges {\n          node {\n            harmonizedSystemCode\n            countryCode\n          }\n        }\n      }\n    }\n    userErrors {\n      message\n    }\n  }\n}\n"
+
+              attr_reader client: untyped
+
+              # Initializes the ItemUpdate class with a GraphQL client.
+              #
+              # @param client [Object] A GraphQL client instance to execute queries.
+              def initialize: (untyped client) -> void
+
+              # Updates an inventory item with the provided ID and input parameters.
+              #
+              # @param id [String] The ID of the inventory item.
+              # @param input [Hash] A hash containing the inventory item update fields.
+              #
+              # @return [Hash] The response from the GraphQL API.
+              def update_item: (id: untyped, input: untyped) -> untyped
+
+              private
+
+              # Executes the GraphQL mutation with the given id and input.
+              #
+              # @param id [String] The inventory item ID.
+              # @param input [Hash] The mutation input.
+              # @return [Hash] The response from the GraphQL API.
+              def execute_mutation: (untyped id, untyped input) -> untyped
+            end
+          end
+        end
+      end
+    end
+  end
+end

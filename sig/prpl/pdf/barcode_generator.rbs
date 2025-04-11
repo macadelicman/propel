@@ -1,0 +1,10 @@
+# lib/prpl/pdf/barcode_generator.rb
+module Prpl
+  module Pdf
+    class BarcodeGenerator < BaseGenerator
+      # Generates a barcode PDF for a variant
+      # Returns the PDF data as a binary string
+      def self.generate_barcode_pdf: (untyped variant) -> untyped
+    end
+  end
+end

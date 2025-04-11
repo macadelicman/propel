@@ -1,0 +1,31 @@
+module Prpl
+  self.@configuration: untyped
+
+  class Configuration
+    @openai_api_key: untyped
+
+    @embeddings_model: untyped
+
+    @default_search_limit: untyped
+
+    @logger: untyped
+
+    attr_accessor openai_api_key: untyped
+
+    attr_accessor embeddings_model: untyped
+
+    attr_accessor default_search_limit: untyped
+
+    attr_accessor logger: untyped
+
+    def initialize: () -> void
+  end
+
+  attr_writer self.configuration: untyped
+
+  def self.configuration: () -> untyped
+
+  def self.configure: () { (untyped) -> untyped } -> untyped
+
+  def self.logger: () -> untyped
+end

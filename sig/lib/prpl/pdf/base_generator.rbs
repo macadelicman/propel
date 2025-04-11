@@ -1,0 +1,14 @@
+# lib/prpl/pdf/base_generator.rb
+module Prpl
+  module Pdf
+    class BaseGenerator
+      POINTS_PER_INCH: 72
+
+      # Formats a price float into a currency string
+      def self.format_price: (untyped value) -> ("$0.00" | ::String)
+
+      # Sanitizes and converts a gap value to float
+      def self.sanitize_gap: (untyped value) -> untyped
+    end
+  end
+end

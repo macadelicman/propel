@@ -1,0 +1,33 @@
+module Prpl
+  module Config
+    module Templates
+      module Products
+        module Queries
+          class GetAllProducts
+            @client: untyped
+
+            GRAPHQL_QUERY: "query GetAllProducts($cursor: String) {\n  products(first: 15, after: $cursor) {\n    edges {\n      cursor\n      node {\n        id\n        title\n        descriptionHtml\n        media(first: 5, sortKey: POSITION) {\n          edges {\n            node {\n              ... on MediaImage {\n                id\n                alt\n                image {\n                  url\n                }\n              }\n            }\n          }\n        }\n        options {\n          id\n          name\n          values\n        }\n        variants(first: 10) {\n          edges {\n            node {\n              id\n              title\n              sku\n              inventoryQuantity\n              selectedOptions {\n                name\n                value\n              }\n            }\n          }\n        }\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+
+            attr_reader client: untyped
+
+            # Initializes the GetAllProducts query class with a GraphQL client.
+            #
+            # @param client [Object] A GraphQL client instance to execute queries.
+            def initialize: (untyped client) -> void
+
+            # Fetches a single page of products.
+            #
+            # @param cursor [String, nil] The pagination cursor; pass nil for the first page.
+            # @return [Hash] The parsed JSON response from the GraphQL API.
+            def fetch_page: (?cursor: untyped?) -> untyped
+
+            # Fetches all products using pagination.
+            #
+            # @return [Array<Hash>] An array of transformed product nodes.
+            def fetch_all: () -> untyped
+          end
+        end
+      end
+    end
+  end
+end

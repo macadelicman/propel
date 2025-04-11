@@ -1,0 +1,10 @@
+# lib/prpl/pdf/label_generator.rb
+module Prpl
+  module Pdf
+    class LabelGenerator < BaseGenerator
+      # Generates a single label PDF for a variant
+      # Returns the PDF data as a binary string
+      def self.generate_single_label: (untyped variant) -> untyped
+    end
+  end
+end

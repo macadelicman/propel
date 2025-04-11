@@ -1,0 +1,10 @@
+module Prpl
+  module Config
+    module Templates
+      module Inventory
+        module Mutations
+        end
+      end
+    end
+  end
+end

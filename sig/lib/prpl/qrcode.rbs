@@ -1,0 +1,4 @@
+module Prpl
+  module Qrcode
+  end
+end

@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# bin/pdf_extractor
+
+require 'optparse'
+require_relative "../lib/prpl/pdf/processors/slate"
+
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: pdf_extractor [options]"
+
+  opts.on("-i", "--input PDF", "Input PDF file path (required)") do |v|
+    options[:pdf_file] = v
+  end
+
+  opts.on("-o", "--output DIRECTORY", "Output directory (default: PDF basename)") do |v|
+    options[:output_dir] = v
+  end
+
+  opts.on("-p", "--processes N", Integer, "Number of processes to use (default: CPU count)") do |v|
+    options[:process_count] = v
+  end
+
+  opts.on("-h", "--help", "Display help information") do
+    puts opts
+    exit
+  end
+end.parse!
+
+unless options[:pdf_file]
+  puts "Error: You must specify an input PDF file with the -i option."
+  exit 1
+end
+
+extractor = Prpl::Pdf::Processors::Extractor.new(
+  pdf_file: options[:pdf_file],
+  output_dir: options[:output_dir],
+  process_count: options[:process_count]
+)
+extractor.extract_pages

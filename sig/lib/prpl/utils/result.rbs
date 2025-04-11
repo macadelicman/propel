@@ -1,0 +1,35 @@
+module Prpl
+  class Result
+    @success: untyped
+
+    @data: untyped
+
+    @error: untyped
+
+    @metadata: untyped
+
+    @status: untyped
+
+    attr_reader success: untyped
+
+    attr_reader data: untyped
+
+    attr_reader error: untyped
+
+    attr_reader metadata: untyped
+
+    attr_reader status: untyped
+
+    def self.success: (?data: untyped?, ?metadata: ::Hash[untyped, untyped], ?status: ::Symbol) -> untyped
+
+    def self.error: (untyped message, ?status: ::Symbol) -> untyped
+
+    def initialize: (success: untyped, ?data: untyped?, ?error: untyped?, ?metadata: ::Hash[untyped, untyped], ?status: ::Symbol) -> void
+
+    def success?: () -> untyped
+
+    def to_h: () -> untyped
+
+    def to_json: (*untyped) -> untyped
+  end
+end

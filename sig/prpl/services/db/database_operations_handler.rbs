@@ -1,0 +1,38 @@
+module Prpl
+  module Services
+    module Db
+      class DatabaseOperationsHandler
+        @model: untyped
+
+        @parsed_operation: untyped
+
+        # Entry point for handling a natural language query.
+        def self.handle_db_operation: (untyped model, untyped query) -> untyped
+
+        attr_reader model: untyped
+
+        attr_reader parsed_operation: untyped
+
+        def initialize: (untyped model, untyped parsed_operation) -> void
+
+        def execute_operation: () -> untyped
+
+        private
+
+        def handle_create: (untyped attributes) -> untyped
+
+        def handle_read: (untyped conditions) -> untyped
+
+        def handle_update: (untyped conditions, untyped attributes) -> untyped
+
+        def handle_delete: (untyped conditions) -> untyped
+
+        def handle_search: (untyped conditions) -> untyped
+
+        def sanitize_attributes: (untyped attributes) -> (::Hash[untyped, untyped] | untyped)
+
+        def sanitize_conditions: (untyped conditions) -> (::Hash[untyped, untyped] | untyped)
+      end
+    end
+  end
+end

@@ -1,0 +1,12 @@
+class Roda
+  module RodaPlugins
+    # ItemSync plugin for Roda that provides a sync endpoint for items
+    module PrplItemSync
+      module InstanceMethods
+        def item_sync_route: () -> untyped
+      end
+
+      def self.configure: (untyped app, ?::Hash[untyped, untyped] opts) -> untyped
+    end
+  end
+end

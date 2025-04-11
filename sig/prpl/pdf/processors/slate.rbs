@@ -1,0 +1,33 @@
+module Prpl
+  module PDF
+    module Processors
+      class Extractor
+        @pdf_file: untyped
+
+        @output_dir: untyped
+
+        @process_count: untyped
+
+        @pdf_data: untyped
+
+        attr_reader pdf_file: untyped
+
+        attr_reader output_dir: untyped
+
+        attr_reader process_count: untyped
+
+        # Initializes the extractor.
+        #
+        # @param pdf_file [String] the path to the input PDF.
+        # @param output_dir [String, nil] the directory to store the extracted pages.
+        #   Defaults to a directory named after the PDF (without its extension).
+        # @param process_count [Integer, nil] the number of processes to use.
+        #   Defaults to the number of available processors.
+        def initialize: (pdf_file: untyped, ?output_dir: untyped?, ?process_count: untyped?) -> void
+
+        # Extracts text from each page of the PDF and saves it into separate text files.
+        def extract_pages: () -> untyped
+      end
+    end
+  end
+end
