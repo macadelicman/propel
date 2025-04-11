@@ -224,7 +224,8 @@ module Prpl
               variant_attributes = {
                 title: variant_data["title"] || "Default Title",
                 sku: sku,
-                inventory_quantity: variant_data["inventoryQuantity"] || 0
+                inventory_quantity: variant_data["inventoryQuantity"] || 0,
+                price: variant_data["price"] || 0.0  # Added price field with default 0.0
               }
 
               if existing_variant
