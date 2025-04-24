@@ -12,4 +12,4 @@ function:
         type: number
         description: New quantity to set # <%= thnk_product.description_html %>
     required: ["sku", "quantity"] # <%= thnk_variant.variant_sku %> <%= thnk_variant.variant_inventory_quantity %>
-  template: # <%= Propel::Config::Templates::Inventory::Mutations::Update::Item.update_item %>
+  template: # <%= Propel::Config::Templates::Inventory::Mutations::Update::Product.update_product %>

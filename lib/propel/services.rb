@@ -3,9 +3,9 @@ require_relative 'services/search/product'
 require_relative 'services/search/qr'
 require_relative 'services/search/similarity'
 
-require_relative 'services/items/filter'
-require_relative 'services/items/finder'
-require_relative 'services/items/paginator'
+require_relative 'services/products/filter'
+require_relative 'services/products/finder'
+require_relative 'services/products/paginator'
 
 require_relative 'services/db/database_operations_handler'
 

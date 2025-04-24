@@ -43,9 +43,9 @@ module Propel
           end
 
           def filter_enumerable
-            scope.select do |item|
+            scope.select do |product|
               searchable_attributes.any? do |attr|
-                value = item.respond_to?(attr) ? item.public_send(attr) : nil
+                value = product.respond_to?(attr) ? product.public_send(attr) : nil
                 value.to_s.downcase.include?(query.downcase)
               end
             end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# lib/propel/services/items/sync_service.rb
+# lib/propel/services/products/sync_service.rb
 
 require 'logger'
 require 'set'
@@ -8,7 +8,7 @@ require 'sequel'
 
 module Propel
   module Services
-    module Items
+    module Products
       class SyncService
         attr_reader :logger
 
@@ -16,28 +16,28 @@ module Propel
           @logger = logger
         end
 
-        def sync(items_data)
-          items = extract_items(items_data)
+        def sync(products_data)
+          products = extract_products(products_data)
 
-          if items.empty?
-            return { status: "error", message: "No items provided" }
+          if products.empty?
+            return { status: "error", message: "No products provided" }
           end
 
           results = initialize_results
 
-          # Use a per-item transaction so that errors on one item do not abort the entire batch.
-          items.each do |item_data|
+          # Use a per-product transaction so that errors on one product do not abort the entire batch.
+          products.each do |product_data|
             begin
-              DB.transaction { process_item_sync(item_data, results) }
+              DB.transaction { process_product_sync(product_data, results) }
             rescue => e
-              handle_sync_error(results, item_data, e)
+              handle_sync_error(results, product_data, e)
             end
           end
 
           render_sync_results(results)
         end
 
-        def fetch_shopify_items
+        def fetch_shopify_products
           shop = ENV['SHOP']
           access_token = ENV['ADMIN_API_ACCESS_TOKEN']
           unless shop && access_token && !access_token.empty?
@@ -48,18 +48,18 @@ module Propel
           session = ShopifyAPI::Auth::Session.new(shop: shop, access_token: access_token)
           client  = ShopifyAPI::Clients::Graphql::Admin.new(session: session)
           products_query = Propel::Config::Templates::Products::Queries::GetAllProducts.new(client)
-          items = products_query.fetch_all
-          logger.info "Fetched #{items.size} products from Shopify"
-          items
+          products = products_query.fetch_all
+          logger.info "Fetched #{products.size} products from Shopify"
+          products
         end
 
         private
 
-        def extract_items(params)
-          if params["items"] && !params["items"].empty?
-            params["items"]
-          elsif params["item"] && !params["item"].empty?
-            [params["item"]]
+        def extract_products(params)
+          if params["products"] && !params["products"].empty?
+            params["products"]
+          elsif params["product"] && !params["product"].empty?
+            [params["product"]]
           elsif params.keys.any?
             [params]
           else
@@ -67,17 +67,17 @@ module Propel
           end
         end
 
-        def validate_item_data(item_data)
-          # Basic fields required for all items
+        def validate_product_data(product_data)
+          # Basic fields required for all products
           required_fields = %w[id title]
 
           missing_fields = required_fields.select do |field|
-            value = item_data[field]
+            value = product_data[field]
             value.nil? || value.to_s.strip.empty?
           end
 
           unless missing_fields.empty?
-            raise "Required item field(s) missing: #{missing_fields.join(', ')}"
+            raise "Required product field(s) missing: #{missing_fields.join(', ')}"
           end
         end
 
@@ -93,116 +93,116 @@ module Propel
           }
         end
 
-        def process_item_sync(item_data, results)
+        def process_product_sync(product_data, results)
           results[:total_processed] += 1
-          product_id = item_data["shopify_item_id"] || item_data["id"]
-          logger.info "Starting sync for item #{product_id}"
+          product_id = product_data["shopify_product_id"] || product_data["id"]
+          logger.info "Starting sync for product #{product_id}"
 
           # Validate the required product fields.
-          validate_item_data(item_data)
+          validate_product_data(product_data)
 
-          # Sync item directly to database
-          item_id = sync_item_to_db(item_data)
+          # Sync product directly to database
+          product_id = sync_product_to_db(product_data)
 
           # Sync images (if available)
-          if item_data["images"] && !item_data["images"].empty?
-            sync_images_to_db(item_id, item_data["images"])
+          if product_data["images"] && !product_data["images"].empty?
+            sync_images_to_db(product_id, product_data["images"])
           end
 
           # If we have variants, sync them
-          if item_data["variants"] && !item_data["variants"].empty?
-            sync_variants_to_db(item_id, item_data["variants"])
+          if product_data["variants"] && !product_data["variants"].empty?
+            sync_variants_to_db(product_id, product_data["variants"])
           end
 
           results[:categories_synced] << {
-            item_type: item_data["item_type"] || "",
-            item_category: item_data["item_category"] || "Default",
-            vendor: item_data["vendor"] || "Unknown"
+            product_type: product_data["product_type"] || "",
+            product_category: product_data["product_category"] || "Default",
+            vendor: product_data["vendor"] || "Unknown"
           }
 
           results[:success_count] += 1
-          logger.info "Successfully synced item #{product_id}"
+          logger.info "Successfully synced product #{product_id}"
         rescue => e
-          handle_sync_error(results, item_data, e)
+          handle_sync_error(results, product_data, e)
         end
 
-        def sync_images_to_db(item_id, images)
+        def sync_images_to_db(product_id, images)
           # Remove any existing images for this product
-          DB[:product_images].where(item_id: item_id).delete
+          DB[:product_images].where(product_id: product_id).delete
           images.each do |url|
             begin
               DB[:product_images].insert(
                 id: SecureRandom.uuid,
-                item_id: item_id,
+                product_id: product_id,
                 url: url,
                 created_at: Time.now,
                 updated_at: Time.now
               )
-              logger.info "Inserted image #{url} for item #{item_id}"
+              logger.info "Inserted image #{url} for product #{product_id}"
             rescue => e
-              logger.error "Error inserting image for item #{item_id}: #{e.message}"
+              logger.error "Error inserting image for product #{product_id}: #{e.message}"
             end
           end
         end
 
-        def sync_item_to_db(item_data)
-          product_id = item_data["shopify_item_id"] || item_data["id"]
+        def sync_product_to_db(product_data)
+          product_id = product_data["shopify_product_id"] || product_data["id"]
 
           # Set defaults for missing values
-          handle = item_data["handle"] || product_id.to_s.split('/').last
+          handle = product_data["handle"] || product_id.to_s.split('/').last
 
-          # Check if item exists by shopify_item_id
-          existing_item = DB[:items].where(shopify_item_id: product_id).first
+          # Check if product exists by shopify_product_id
+          existing_product = DB[:products].where(shopify_product_id: product_id).first
 
           # If not found, check by handle
-          if !existing_item
-            existing_item = DB[:items].where(handle: handle).first
+          if !existing_product
+            existing_product = DB[:products].where(handle: handle).first
           end
 
-          # Create item attributes hash
-          item_attributes = {
-            title: item_data["title"],
+          # Create product attributes hash
+          product_attributes = {
+            title: product_data["title"],
             handle: handle,
-            status: item_data["status"] || "active",
-            published: item_data["published"] || false,
-            item_type: item_data["item_type"] || item_data["product_type"] || "", # Can be empty
-            item_category: item_data["item_category"] || item_data["product_category"] || "Default",
-            vendor: item_data["vendor"] || "Unknown",
-            tags: Sequel.pg_array(Array(item_data["tags"]), :text),
-            online_store_url: item_data["online_store_url"],
-            online_store_preview_url: item_data["online_store_preview_url"],
-            body_html: item_data["descriptionHtml"], # Save the HTML description to body_html
+            status: product_data["status"] || "active",
+            published: product_data["published"] || false,
+            product_type: product_data["product_type"] || product_data["product_type"] || "", # Can be empty
+            product_category: product_data["product_category"] || product_data["product_category"] || "Default",
+            vendor: product_data["vendor"] || "Unknown",
+            tags: Sequel.pg_array(Array(product_data["tags"]), :text),
+            online_store_url: product_data["online_store_url"],
+            online_store_preview_url: product_data["online_store_preview_url"],
+            body_html: product_data["descriptionHtml"], # Save the HTML description to body_html
             synced_at: Time.now,
             raw_category_data: Sequel.pg_jsonb({
-                                                 "item_type" => item_data["item_type"] || item_data["product_type"] || "",
-                                                 "item_category" => item_data["item_category"] || item_data["product_category"] || "Default",
-                                                 "vendor" => item_data["vendor"] || "Unknown",
-                                                 "tags" => Array(item_data["tags"]),
+                                                 "product_type" => product_data["product_type"] || product_data["product_type"] || "",
+                                                 "product_category" => product_data["product_category"] || product_data["product_category"] || "Default",
+                                                 "vendor" => product_data["vendor"] || "Unknown",
+                                                 "tags" => Array(product_data["tags"]),
                                                  "received_at" => Time.now.to_s
                                                })
           }
 
-          if existing_item
-            # Update the existing item
-            item_id = existing_item[:id]
-            DB[:items].where(id: item_id).update(item_attributes.merge(updated_at: Time.now))
-            logger.info "Updated existing item #{item_id}"
-            return item_id
+          if existing_product
+            # Update the existing product
+            product_id = existing_product[:id]
+            DB[:products].where(id: product_id).update(product_attributes.merge(updated_at: Time.now))
+            logger.info "Updated existing product #{product_id}"
+            return product_id
           else
-            # Create a new item
-            item_id = SecureRandom.uuid
-            DB[:items].insert(item_attributes.merge(
-              id: item_id,
-              shopify_item_id: product_id,
+            # Create a new product
+            product_id = SecureRandom.uuid
+            DB[:products].insert(product_attributes.merge(
+              id: product_id,
+              shopify_product_id: product_id,
               created_at: Time.now,
               updated_at: Time.now
             ))
-            logger.info "Created new item #{item_id}"
-            return item_id
+            logger.info "Created new product #{product_id}"
+            return product_id
           end
         end
 
-        def sync_variants_to_db(item_id, variants_data)
+        def sync_variants_to_db(product_id, variants_data)
           return unless variants_data && !variants_data.empty?
 
           variants_data.each do |variant_data|
@@ -218,7 +218,7 @@ module Propel
 
               # If not found by ID, try by SKU
               if !existing_variant && !sku.empty?
-                existing_variant = DB[:product_variants].where(item_id: item_id, sku: sku).first
+                existing_variant = DB[:product_variants].where(product_id: product_id, sku: sku).first
               end
 
               variant_attributes = {
@@ -245,7 +245,7 @@ module Propel
                 DB[:product_variants].insert(
                   variant_attributes.merge(
                     id: new_variant_id,
-                    item_id: item_id,
+                    product_id: product_id,
                     shopify_variant_id: variant_id,
                     created_at: Time.now,
                     updated_at: Time.now
@@ -289,14 +289,14 @@ module Propel
           end
         end
 
-        def handle_sync_error(results, item_data, error)
+        def handle_sync_error(results, product_data, error)
           results[:error_count] += 1
           results[:status] = "error"
           error_details = {
-            shopify_item_id: item_data["shopify_item_id"] || item_data["id"],
+            shopify_product_id: product_data["shopify_product_id"] || product_data["id"],
             error: error.message
           }
-          logger.error "Error syncing item #{item_data['shopify_item_id'] || item_data['id']}: #{error.message}"
+          logger.error "Error syncing product #{product_data['shopify_product_id'] || product_data['id']}: #{error.message}"
           results[:errors] << error_details
         end
 
@@ -317,11 +317,11 @@ module Propel
 
         def sync_status_message(results)
           if results[:error_count] > 0 && results[:success_count] > 0
-            "Synced #{results[:success_count]} items with #{results[:error_count]} errors"
+            "Synced #{results[:success_count]} products with #{results[:error_count]} errors"
           elsif results[:success_count] > 0
-            "Successfully synced #{results[:success_count]} items"
+            "Successfully synced #{results[:success_count]} products"
           else
-            "Failed to sync items"
+            "Failed to sync products"
           end
         end
       end

@@ -53,7 +53,7 @@ module Propel
             if scope.respond_to?(:where)
               scope.where(field => query).limit(DEFAULT_LIMIT)
             else
-              scope.select { |item| item.respond_to?(field) && item.public_send(field) == query }
+              scope.select { |product| product.respond_to?(field) && product.public_send(field) == query }
             end
           end
 

@@ -20,7 +20,7 @@ module Propel
                         id
                         title
                         inventoryQuantity
-                        inventoryItem {
+                        inventoryProduct {
                           id
                           tracked
                         }

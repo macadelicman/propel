@@ -1,34 +1,34 @@
 # frozen_string_literal: true
-# lib/propel/plugins/roda/item_sync.rb
+# lib/propel/plugins/roda/product_sync.rb
 
 require 'roda'
-require_relative '../../services/items/sync_service'
+require_relative '../../services/products/sync_service'
 
 class Roda
   module RodaPlugins
-    # ItemSync plugin for Roda that provides a sync endpoint for items
-    module PropelItemSync
+    # ProductSync plugin for Roda that provides a sync endpoint for products
+    module PropelProductSync
       module InstanceMethods
-        def item_sync_route
+        def product_sync_route
           route do |r|
             r.post "sync" do
               logger = env['rack.logger'] || Logger.new($stdout)
-              sync_service = Propel::Services::Items::SyncService.new(logger: logger)
+              sync_service = Propel::Services::Products::SyncService.new(logger: logger)
 
               begin
-                if r.params.empty? || (r.params["items"].nil? && r.params["item"].nil? && r.params.keys.empty?)
-                  # When no items provided, fetch from Shopify
-                  items = sync_service.fetch_shopify_items
-                  if items.empty?
+                if r.params.empty? || (r.params["products"].nil? && r.params["product"].nil? && r.params.keys.empty?)
+                  # When no products provided, fetch from Shopify
+                  products = sync_service.fetch_shopify_products
+                  if products.empty?
                     response.status = 400
-                    { status: "error", message: "No items provided or found in Shopify" }
+                    { status: "error", message: "No products provided or found in Shopify" }
                   else
-                    results = sync_service.sync({ "items" => items })
+                    results = sync_service.sync({ "products" => products })
                     response.status = results[:status] == "success" ? 200 : 207
                     results
                   end
                 else
-                  # Process items provided in request
+                  # Process products provided in request
                   results = sync_service.sync(r.params)
                   response.status = results[:status] == "success" ? 200 : 207
                   results
@@ -49,6 +49,6 @@ class Roda
       end
     end
 
-    register_plugin(:propel_item_sync, PropelItemSync)
+    register_plugin(:propel_product_sync, PropelProductSync)
   end
 end

@@ -1,7 +1,7 @@
 # lib/propel/services/products/filter.rb
 module Propel
   module Services
-    module Items
+    module Products
       class Filter
         attr_reader :scope, :criteria
 

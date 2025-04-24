@@ -7,14 +7,14 @@ require_relative 'propel/utils'
 require_relative 'propel/services'
 require_relative 'propel/inventory'
 require_relative 'propel/pdf'
-require_relative 'propel/items'
+require_relative 'propel/products'
 
 module Propel
   autoload :Version, 'propel/version'
 
   module Services
-    module Items
-      autoload :SyncService, 'propel/services/items/sync_service'
+    module Products
+      autoload :SyncService, 'propel/services/products/sync_service'
     end
   end
 
@@ -31,5 +31,5 @@ end
 
 # Register Roda plugins
 if defined?(Roda)
-  require_relative 'propel/plugins/roda/item_sync'
+  require_relative 'propel/plugins/roda/product_sync'
 end

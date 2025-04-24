@@ -1,4 +1,4 @@
-require_relative 'mutations/update/item'
+require_relative 'mutations/update/product'
 require_relative 'mutations/set/on_hand_quantities'
 require_relative 'mutations/adjust/quantities'
 

@@ -36,15 +36,15 @@ module Propel
                 @client = client
               end
 
-              # Adjusts inventory quantity for a given item at a specific location.
+              # Adjusts inventory quantity for a given product at a specific location.
               #
-              # @param inventory_item_id [String] the ID of the inventory item.
+              # @param inventory_product_id [String] the ID of the inventory product.
               # @param location_id [String] the ID of the location where the adjustment occurs.
               # @param delta [Integer] the quantity change (positive or negative).
               # @param reference_document_uri [String] the reference document URI for tracking.
               #
               # @return [Hash] the response from the GraphQL API.
-              def adjust_quantity(inventory_item_id:, location_id:, delta:, reference_document_uri:)
+              def adjust_quantity(inventory_product_id:, location_id:, delta:, reference_document_uri:)
                 input = {
                   reason: 'correction',
                   name: 'available',
@@ -52,7 +52,7 @@ module Propel
                   changes: [
                     {
                       delta: delta,
-                      inventoryItemId: inventory_item_id,
+                      inventoryProductId: inventory_product_id,
                       locationId: location_id
                     }
                   ]
@@ -99,7 +99,7 @@ end
 #
 # # Execute an inventory adjustment mutation.
 # response = inventory_adjuster.adjust_quantity(
-#   inventory_item_id: "gid://shopify/InventoryItem/30322695",
+#   inventory_product_id: "gid://shopify/InventoryProduct/30322695",
 #   location_id: "gid://shopify/Location/124656943",
 #   delta: -4,
 #   reference_document_uri: "logistics://some.warehouse/take/2023-01/13"

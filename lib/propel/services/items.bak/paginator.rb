@@ -1,6 +1,6 @@
 module Propel
   module Services
-    module Items
+    module Products
       class Paginator
         DEFAULT_PER_PAGE = 10
         DEFAULT_PAGE = 1

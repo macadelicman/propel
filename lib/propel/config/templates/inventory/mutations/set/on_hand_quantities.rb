@@ -36,7 +36,7 @@ module Propel
                 @client = client
               end
 
-              # Updates inventory quantities for multiple items.
+              # Updates inventory quantities for multiple products.
               #
               # @param reason [String] The reason for the update.
               # @param reference_uri [String] The reference document URI.
@@ -102,12 +102,12 @@ end
 #   reference_uri: "logistics://some.warehouse/take/2023-01-23T13:14:15Z",
 #   quantities: [
 #     {
-#       "inventoryItemId" => "gid://shopify/InventoryItem/30322695",
+#       "inventoryProductId" => "gid://shopify/InventoryProduct/30322695",
 #       "locationId" => "gid://shopify/Location/124656943",
 #       "quantity" => 42
 #     },
 #     {
-#       "inventoryItemId" => "gid://shopify/InventoryItem/113711323",
+#       "inventoryProductId" => "gid://shopify/InventoryProduct/113711323",
 #       "locationId" => "gid://shopify/Location/124656943",
 #       "quantity" => 13
 #     }

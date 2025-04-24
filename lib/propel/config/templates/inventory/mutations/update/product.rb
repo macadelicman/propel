@@ -6,11 +6,11 @@ module Propel
       module Inventory
         module Mutations
           module Update
-            class Item
+            class Product
               GRAPHQL_MUTATION = <<~GQL
-                mutation inventoryItemUpdate($id: ID!, $input: InventoryItemInput!) {
-                  inventoryItemUpdate(id: $id, input: $input) {
-                    inventoryItem {
+                mutation inventoryProductUpdate($id: ID!, $input: InventoryProductInput!) {
+                  inventoryProductUpdate(id: $id, input: $input) {
+                    inventoryProduct {
                       id
                       unitCost {
                         amount
@@ -37,20 +37,20 @@ module Propel
 
               attr_reader :client
 
-              # Initializes the ItemUpdate class with a GraphQL client.
+              # Initializes the ProductUpdate class with a GraphQL client.
               #
               # @param client [Object] A GraphQL client instance to execute queries.
               def initialize(client)
                 @client = client
               end
 
-              # Updates an inventory item with the provided ID and input parameters.
+              # Updates an inventory product with the provided ID and input parameters.
               #
-              # @param id [String] The ID of the inventory item.
-              # @param input [Hash] A hash containing the inventory item update fields.
+              # @param id [String] The ID of the inventory product.
+              # @param input [Hash] A hash containing the inventory product update fields.
               #
               # @return [Hash] The response from the GraphQL API.
-              def update_item(id:, input:)
+              def update_product(id:, input:)
                 execute_mutation(id, input)
               end
 
@@ -58,7 +58,7 @@ module Propel
 
               # Executes the GraphQL mutation with the given id and input.
               #
-              # @param id [String] The inventory item ID.
+              # @param id [String] The inventory product ID.
               # @param input [Hash] The mutation input.
               # @return [Hash] The response from the GraphQL API.
               def execute_mutation(id, input)
@@ -88,12 +88,12 @@ end
 # # Create the GraphQL client.
 # client = GraphQL::Client.new(schema: schema, execute: http)
 #
-# # Instantiate the ItemUpdate class.
-# inventory_item_updater = Propel::Config::Templates::Inventory::Update::Item.new(client)
+# # Instantiate the ProductUpdate class.
+# inventory_product_updater = Propel::Config::Templates::Inventory::Update::Product.new(client)
 #
-# # Execute the inventory item update mutation.
-# response = inventory_item_updater.update_item(
-#   id: "gid://shopify/InventoryItem/43729076",
+# # Execute the inventory product update mutation.
+# response = inventory_product_updater.update_product(
+#   id: "gid://shopify/InventoryProduct/43729076",
 #   input: {
 #     cost: 145.89,
 #     tracked: false,

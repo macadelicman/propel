@@ -1,7 +1,7 @@
 # lib/propel/services/products/finder.rb
 module Propel
   module Services
-    module Items
+    module Products
       class Finder
         attr_reader :options, :scope
 

@@ -40,15 +40,15 @@ class SyncProductsService
   def self.save_to_database(response_body)
     data = JSON.parse(response_body)
     if data['data'].present?
-      data['data'].each do |item|
-        product = PrintfulSyncProduct.find_or_initialize_by(printful_id: item['id'])
+      data['data'].each do |product|
+        product = PrintfulSyncProduct.find_or_initialize_by(printful_id: product['id'])
         product.assign_attributes(
-          name: item['name'],
-          external_id: item['external_id'],
-          description: item['description'],
-          thumbnail_url: item['thumbnail_url'],
-          image_url: item['thumbnail_url'],
-          is_ignored: item['is_ignored']
+          name: product['name'],
+          external_id: product['external_id'],
+          description: product['description'],
+          thumbnail_url: product['thumbnail_url'],
+          image_url: product['thumbnail_url'],
+          is_ignored: product['is_ignored']
         )
         product.save!
       end

@@ -143,14 +143,14 @@ module Propel
                   # Build final product hash
                   {
                     'id' => product['id'],
-                    'shopify_item_id' => product['id'],
+                    'shopify_product_id' => product['id'],
                     'title' => product['title'],
                     'descriptionHtml' => product['descriptionHtml'],
                     'handle' => handle,
                     'vendor' => vendor,
-                    'item_type' => '',
                     'product_type' => '',
-                    'item_category' => category,
+                    'product_type' => '',
+                    'product_category' => category,
                     'product_category' => category,
                     'status' => 'ACTIVE',
                     'published' => true,
