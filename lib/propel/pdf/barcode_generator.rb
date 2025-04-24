@@ -1,4 +1,5 @@
 # lib/propel/pdf/barcode_generator.rb
+=begin
 require_relative 'base_generator'
 
 module Propel
@@ -34,3 +35,4 @@ module Propel
     end
   end
 end
+=end
