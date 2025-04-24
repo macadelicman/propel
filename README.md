@@ -3,7 +3,7 @@
 ![Propel Gem](https://img.shields.io/gem/v/propel.svg)
 ![License](https://img.shields.io/github/license/yourusername/propel.svg)
 
-Propel is a comprehensive Ruby gem designed to seamlessly integrate with Shopify's GraphQL API, facilitating advanced inventory management, product synchronization, and PDF generation. Whether you're looking to automate file operations, manage inventory levels, generate barcode/QR code PDFs, or enhance your product search capabilities, Propel offers a robust set of tools to streamline your e-commerce workflows.
+Propel is a Ruby gem designed to integrate with Shopify's GraphQL API, for inventory management, product synchronization, and PDF generation. Whether you're looking to automate file operations, manage inventory levels, generate barcode/QR code PDFs, or enhance your product search capabilities, Propel offers a set of tools to streamline your e-commerce workflows.
 
 ## Table of Contents
 
