@@ -85,7 +85,7 @@ GEM
     fiber-storage (1.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    graphql (2.4.11)
+    graphql (2.5.4)
       base64
       fiber-storage
       logger
@@ -226,7 +226,7 @@ PLATFORMS
 DEPENDENCIES
   barby
   csv
-  graphql
+  graphql (>= 2.4.13)
   graphql-client
   langchainrb
   neighbor

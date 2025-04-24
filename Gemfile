@@ -12,7 +12,7 @@ gem "rspec"
 gem 'langchainrb'
 gem 'ruby-openai'
 gem 'graphql-client'
-gem 'graphql'
+gem "graphql", ">= 2.4.13"
 gem 'rqrcode'
 gem 'neighbor'
 gem 'pgvector'
