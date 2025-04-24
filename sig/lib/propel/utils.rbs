@@ -1,0 +1,4 @@
+module Propel
+  module Utils
+  end
+end

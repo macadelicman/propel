@@ -1,4 +1,4 @@
-module Prpl
+module Propel
   class Result
     @success: untyped
 
@@ -34,7 +34,7 @@ module Prpl
 end
 
 # Product QR Label Generator with Text
-class ProductQrLabelGenerator < Prpl::Pdf::Generators::Base
+class ProductQrLabelGenerator < Propel::Pdf::Generators::Base
   @url: untyped
 
   @price: untyped

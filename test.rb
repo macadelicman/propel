@@ -1,14 +1,14 @@
 # First, load your logger
-require_relative 'lib/prpl/utils/logger'
-
+require_relative 'lib/propel/utils/logger'
+require_relative 'lib/propel/pdf/base_generator'
 # Then load the required libraries and PDF generator
-require_relative 'lib/prpl/pdf/generators/qr_code'
+require_relative 'lib/propel/pdf/generators/qr_code'
 require 'rqrcode'
 require 'fileutils'
 
 # Create the Result and Error classes if not defined
-unless defined?(Prpl::Result)
-  module Prpl
+unless defined?(Propel::Result)
+  module Propel
     class Result
       attr_reader :data, :metadata, :error, :status
 
@@ -40,7 +40,7 @@ unless defined?(Prpl::Result)
 end
 
 # Product QR Label Generator with Text
-class ProductQrLabelGenerator < Prpl::Pdf::Generators::Base
+class ProductQrLabelGenerator < Propel::Pdf::Generators::Base
   def initialize(options = {})
     super
     @url = options[:url]
@@ -128,7 +128,7 @@ begin
   puts "Starting QR code generation with tighter text spacing..."
 
   result = ProductQrLabelGenerator.generate(
-    url: "https://example.com/products/bubbly-vase",
+    url: "https://rodaqr.fly.dev/api/v1/scan/",
     price: 55.00,
     option: "Navy Blue",
     handle: "bubbly-vase"

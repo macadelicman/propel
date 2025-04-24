@@ -1,0 +1,33 @@
+module Propel
+  module Config
+    module Templates
+      module Collections
+        module Queries
+          class GetAllCollections
+            @client: untyped
+
+            GRAPHQL_QUERY: "query GetAllCollections($cursor: String) {\n  collections(first: 50, after: $cursor) {\n    edges {\n      cursor\n      node {\n        id\n        title\n        handle\n        updatedAt\n        sortOrder\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+
+            attr_reader client: untyped
+
+            # Initializes the GetAllCollections query class with a GraphQL client.
+            #
+            # @param client [Object] A GraphQL client instance to execute queries.
+            def initialize: (untyped client) -> void
+
+            # Fetches a single page of collections.
+            #
+            # @param cursor [String, nil] The pagination cursor; pass nil for the first page.
+            # @return [Hash] The parsed JSON response from the GraphQL API.
+            def fetch_page: (?cursor: untyped?) -> untyped
+
+            # Fetches all collections using pagination.
+            #
+            # @return [Array<Hash>] An array of transformed collection nodes.
+            def fetch_all: () -> untyped
+          end
+        end
+      end
+    end
+  end
+end

@@ -1,0 +1,7 @@
+module Propel
+  self.@logger: untyped
+
+  attr_writer self.logger: untyped
+
+  def self.logger: () -> untyped
+end

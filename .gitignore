@@ -9,3 +9,16 @@
 
 # rspec failure tracking
 .rspec_status
+
+.venv
+.venv/
+.venv/*
+/.venv/
+/.venv/*
+
+.python-version
+
+main.py
+remove_backups.py
+search_and_rescue.py
+setup.sh

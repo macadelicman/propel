@@ -2,7 +2,7 @@
 # bin/pdf_extractor
 
 require 'optparse'
-require_relative "../lib/prpl/pdf/processors/slate"
+require_relative "../lib/propel/pdf/processors/slate"
 
 options = {}
 
@@ -32,7 +32,7 @@ unless options[:pdf_file]
   exit 1
 end
 
-extractor = Prpl::Pdf::Processors::Extractor.new(
+extractor = Propel::Pdf::Processors::Extractor.new(
   pdf_file: options[:pdf_file],
   output_dir: options[:output_dir],
   process_count: options[:process_count]

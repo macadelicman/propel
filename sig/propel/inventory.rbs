@@ -1,0 +1,4 @@
+module Propel
+  module Inventory
+  end
+end

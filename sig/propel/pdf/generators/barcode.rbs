@@ -1,0 +1,53 @@
+module Propel
+  module Pdf
+    module Generators
+      class Barcode < Base
+        @barcode_options: untyped
+
+        BARCODE_OPTIONS: { height: Integer, xdim: Integer, margin: Integer }
+        BARCODE_DEFAULTS: { width: Integer, text_size: { sku: Integer, price: Integer } }
+
+        def initialize: (?Hash[untyped, untyped] options) -> void
+        def generate_pdf: () -> String
+        def generate_filename: () -> String
+
+        private
+        def add_barcode: (document: untyped) -> void
+        def generate_barcode_image: (barcode: untyped) -> String
+        def add_details: (document: untyped) -> void
+        def calculate_margins: () -> untyped
+        def validate_barcode_data!: () -> nil
+        def barcode_content: () -> String?
+        def variant_identifier: () -> String?
+        def variant_sku: () -> String?
+        def variant_price: () -> Numeric?
+        def qr_code_data: () -> String?
+        def barcode_context: () -> {
+            variant_identifier: String?,
+            variant_sku: String?,
+            has_barcode: bool,
+            has_qr: bool,
+            barcode_options: untyped
+          }
+      end
+
+      class BarcodeQr < Barcode
+        def initialize: (?Hash[untyped, untyped] options) -> void
+        def generate_pdf: () -> String
+        def generate_filename: () -> String
+
+        private
+        def add_qr_code: (document: untyped) -> void
+        def add_price_to_page: (document: untyped) -> void
+        def calculate_dimensions: (document: untyped) -> {
+            usable_width: Numeric,
+            usable_height: Numeric,
+            qr_size: Numeric,
+            x_position: Numeric,
+            y_position: Numeric
+          }
+        def validate_qr_data!: () -> nil
+      end
+    end
+  end
+end

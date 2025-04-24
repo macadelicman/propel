@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    prpl (0.1.0)
+    propel (0.1.0)
       active_storage_validations
 
 GEM
@@ -232,7 +232,7 @@ DEPENDENCIES
   neighbor
   pgvector
   prawn
-  prpl!
+  propel!
   rake
   rqrcode
   rspec

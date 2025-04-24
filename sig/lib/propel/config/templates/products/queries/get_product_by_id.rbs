@@ -1,0 +1,28 @@
+module Propel
+  module Config
+    module Templates
+      module Products
+        module Queries
+          class GetProduct
+            @client: untyped
+
+            GRAPHQL_QUERY: "query GetProduct($id: ID!) {\n  product(id: $id) {\n    id\n    title\n    variants(first: 10) {\n      nodes {\n        id\n        title\n      }\n    }\n    collections(first: 10) {\n      nodes {\n        id\n        title\n      }\n    }\n  }\n}\n"
+
+            attr_reader client: untyped
+
+            # Initializes the GetProduct query class with a GraphQL client.
+            #
+            # @param client [Object] A GraphQL client instance to execute queries.
+            def initialize: (untyped client) -> void
+
+            # Fetches a single product by its Shopify numerical id.
+            #
+            # @param product_numeric_id [Integer, String] The numerical Shopify product id.
+            # @return [Hash, nil] A hash with structured product data or nil if not found.
+            def fetch: (untyped product_numeric_id) -> (nil | { "id" => untyped, "title" => untyped, "variants" => untyped, "collections" => untyped })
+          end
+        end
+      end
+    end
+  end
+end

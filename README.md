@@ -1,9 +1,9 @@
 # Propel Gem
 
-![Prpl Gem](https://img.shields.io/gem/v/prpl.svg)
-![License](https://img.shields.io/github/license/yourusername/prpl.svg)
+![Propel Gem](https://img.shields.io/gem/v/propel.svg)
+![License](https://img.shields.io/github/license/yourusername/propel.svg)
 
-Prpl is a comprehensive Ruby gem designed to seamlessly integrate with Shopify's GraphQL API, facilitating advanced inventory management, product synchronization, and PDF generation. Whether you're looking to automate file operations, manage inventory levels, generate barcode/QR code PDFs, or enhance your product search capabilities, Prpl offers a robust set of tools to streamline your e-commerce workflows.
+Propel is a comprehensive Ruby gem designed to seamlessly integrate with Shopify's GraphQL API, facilitating advanced inventory management, product synchronization, and PDF generation. Whether you're looking to automate file operations, manage inventory levels, generate barcode/QR code PDFs, or enhance your product search capabilities, Propel offers a robust set of tools to streamline your e-commerce workflows.
 
 ## Table of Contents
 
@@ -48,7 +48,7 @@ Prpl is a comprehensive Ruby gem designed to seamlessly integrate with Shopify's
 Add this line to your application's `Gemfile`:
 
 ```ruby
-gem 'prpl'
+gem 'propel'
 ```
 
 And then execute:
@@ -60,15 +60,15 @@ $ bundle install
 Or install it yourself as:
 
 ```bash
-$ gem install prpl
+$ gem install propel
 ```
 
 ## Configuration
 
-Before using Prpl, you need to configure it with your OpenAI API key and other settings. Create an initializer file (e.g., `config/initializers/prpl.rb`) and add the following configuration:
+Before using Propel, you need to configure it with your OpenAI API key and other settings. Create an initializer file (e.g., `config/initializers/propel.rb`) and add the following configuration:
 
 ```ruby
-Prpl.configure do |config|
+Propel.configure do |config|
   config.openai_api_key = ENV['OPENAI_API_KEY'] # Required for similarity search
   config.embeddings_model = 'text-embedding-small-003' # Default embeddings model
   config.default_search_limit = 5 # Default number of search results
@@ -80,11 +80,11 @@ Ensure that the necessary environment variables (like `OPENAI_API_KEY`) are set 
 
 ## Usage
 
-Prpl provides a variety of services and tools to interact with Shopify's API, manage inventory, generate PDFs, and perform advanced searches. Below are detailed explanations and examples for each major feature.
+Propel provides a variety of services and tools to interact with Shopify's API, manage inventory, generate PDFs, and perform advanced searches. Below are detailed explanations and examples for each major feature.
 
 ### Shopify API Integration
 
-Prpl offers a set of GraphQL mutations and queries to interact with Shopify's API, enabling file operations, inventory management, and product retrieval.
+Propel offers a set of GraphQL mutations and queries to interact with Shopify's API, enabling file operations, inventory management, and product retrieval.
 
 #### File Mutations
 
@@ -149,7 +149,7 @@ session = ShopifyAPI::Auth::Session.new(
 )
 client = ShopifyAPI::Clients::Graphql::Admin.new(session: session)
 
-mutation = Prpl::Config::Templates::Inventory::Adjust::Quantities.new(client)
+mutation = Propel::Config::Templates::Inventory::Adjust::Quantities.new(client)
 response = mutation.adjust_quantity(
   inventory_item_id: "gid://shopify/InventoryItem/30322695",
   location_id: "gid://shopify/Location/124656943",
@@ -173,7 +173,7 @@ session = ShopifyAPI::Auth::Session.new(
 )
 client = ShopifyAPI::Clients::Graphql::Admin.new(session: session)
 
-mutation = Prpl::Config::Templates::Inventory::Set::OnHandQuantities.new(client)
+mutation = Propel::Config::Templates::Inventory::Set::OnHandQuantities.new(client)
 response = mutation.update_quantities(
   reason: "correction",
   reference_uri: "logistics://some.warehouse/take/2023-01-23T13:14:15Z",
@@ -207,7 +207,7 @@ session = ShopifyAPI::Auth::Session.new(
 )
 client = ShopifyAPI::Clients::Graphql::Admin.new(session: session)
 
-mutation = Prpl::Config::Templates::Inventory::Update::Item.new(client)
+mutation = Propel::Config::Templates::Inventory::Update::Item.new(client)
 response = mutation.update_item(
   id: "gid://shopify/InventoryItem/43729076",
   input: {
@@ -245,7 +245,7 @@ session = ShopifyAPI::Auth::Session.new(
 )
 client = ShopifyAPI::Clients::Graphql::Admin.new(session: session)
 
-query = Prpl::Config::Templates::Products::Queries::GetAllProducts.new(client)
+query = Propel::Config::Templates::Products::Queries::GetAllProducts.new(client)
 products = query.fetch_all
 
 puts products
@@ -260,7 +260,7 @@ require 'shopify_api'
 
 client = ShopifyAPI::Clients::Graphql::Admin.new(session: session)
 
-query = Prpl::Config::Templates::Products::Queries::GetProductByHandle.new(client)
+query = Propel::Config::Templates::Products::Queries::GetProductByHandle.new(client)
 response = query.fetch_product("winter-hat")
 
 puts response
@@ -268,7 +268,7 @@ puts response
 
 ## Inventory Management
 
-Prpl provides services to manage your inventory efficiently, ensuring accurate stock levels and streamlined operations.
+Propel provides services to manage your inventory efficiently, ensuring accurate stock levels and streamlined operations.
 
 ### Adjusting Quantities
 
@@ -277,7 +277,7 @@ Adjust the inventory quantity for specific products or variants.
 **Example:**
 
 ```ruby
-result = Prpl::Services::Inventory::Adjuster.adjust(
+result = Propel::Services::Inventory::Adjuster.adjust(
   variant: variant_instance,
   quantity: -2,
   additional_option: "value" # Additional options if needed
@@ -297,7 +297,7 @@ Set the exact quantity of items available in your inventory.
 **Example:**
 
 ```ruby
-result = Prpl::Config::Templates::Inventory::Set::OnHandQuantities.new(client).update_quantities(
+result = Propel::Config::Templates::Inventory::Set::OnHandQuantities.new(client).update_quantities(
   reason: "restock",
   reference_uri: "logistics://warehouse/restock/2023-02-01",
   quantities: [
@@ -319,7 +319,7 @@ Modify details of inventory items such as cost, origin, and tracking status.
 **Example:**
 
 ```ruby
-mutation = Prpl::Config::Templates::Inventory::Update::Item.new(client)
+mutation = Propel::Config::Templates::Inventory::Update::Item.new(client)
 response = mutation.update_item(
   id: "gid://shopify/InventoryItem/43729076",
   input: {
@@ -351,7 +351,7 @@ Create barcode PDFs for your inventory variants.
 **Example:**
 
 ```ruby
-barcode_pdf = Prpl::Pdf::BarcodeGenerator.generate_barcode_pdf(variant_instance)
+barcode_pdf = Propel::Pdf::BarcodeGenerator.generate_barcode_pdf(variant_instance)
 File.open('barcode_label.pdf', 'wb') { |f| f.write(barcode_pdf) }
 ```
 
@@ -362,9 +362,9 @@ Generate QR code PDFs for quick inventory scanning and management.
 **Example:**
 
 ```ruby
-qr_data = Prpl::Pdf::QrCodeData.new(variant_instance, validator_instance)
-qr_image = Prpl::Pdf::QrCodeImage.new(qr_data.product_url)
-pdf_generator = Prpl::Pdf::QrCodePdfGenerator.new(qr_image, qr_data)
+qr_data = Propel::Pdf::QrCodeData.new(variant_instance, validator_instance)
+qr_image = Propel::Pdf::QrCodeImage.new(qr_data.product_url)
+pdf_generator = Propel::Pdf::QrCodePdfGenerator.new(qr_image, qr_data)
 
 pdf_data = pdf_generator.generate_pdf('qr_label.pdf')
 File.open('qr_label.pdf', 'wb') { |f| f.write(pdf_data) }
@@ -377,7 +377,7 @@ Create sheets containing multiple barcode or QR code labels for bulk printing.
 **Example:**
 
 ```ruby
-sheet_pdf = Prpl::Pdf::SheetGenerator.generate_barcode_qr_sheet(variant_instance, column_gap: 0.2, row_gap: 0.2)
+sheet_pdf = Propel::Pdf::SheetGenerator.generate_barcode_qr_sheet(variant_instance, column_gap: 0.2, row_gap: 0.2)
 File.open('barcode_qr_sheet.pdf', 'wb') { |f| f.write(sheet_pdf) }
 ```
 
@@ -388,14 +388,14 @@ Generate roll labels for continuous inventory labeling.
 **Example:**
 
 ```ruby
-roll_label = Prpl::Pdf::RollLabel.new(variant_instance)
+roll_label = Propel::Pdf::RollLabel.new(variant_instance)
 pdf_data = roll_label.generate
 File.open('roll_label.pdf', 'wb') { |f| f.write(pdf_data) }
 ```
 
 ## Search Services
 
-Enhance your product search capabilities with Prpl's advanced search services.
+Enhance your product search capabilities with Propel's advanced search services.
 
 ### Product Search
 
@@ -404,7 +404,7 @@ Perform robust searches on products based on various attributes.
 **Example:**
 
 ```ruby
-finder = Prpl::Services::Items::Finder.new(scope: Product.all, query: "winter hat", category: "Apparel")
+finder = Propel::Services::Items::Finder.new(scope: Product.all, query: "winter hat", category: "Apparel")
 result = finder.find
 
 if result.success?
@@ -423,7 +423,7 @@ Search for products based on their QR codes.
 **Example:**
 
 ```ruby
-qr_search = Prpl::Services::Search::Qr.new(query: "some-qr-code-data", scope: Product.all)
+qr_search = Propel::Services::Search::Qr.new(query: "some-qr-code-data", scope: Product.all)
 result = qr_search.perform
 
 if result.success?
@@ -443,7 +443,7 @@ Find similar products using OpenAI's embeddings for enhanced search accuracy.
 **Example:**
 
 ```ruby
-similarity_search = Prpl::Services::Search::Similarity.new(
+similarity_search = Propel::Services::Search::Similarity.new(
   query: "comfortable running shoes",
   scope: Product.all
 )
@@ -460,7 +460,7 @@ end
 
 ## Roda Plugin
 
-Integrate Prpl's synchronization endpoint into your Roda-based web applications to handle product synchronization seamlessly.
+Integrate Propel's synchronization endpoint into your Roda-based web applications to handle product synchronization seamlessly.
 
 **Installation:**
 
@@ -472,17 +472,17 @@ gem 'roda'
 
 **Configuration:**
 
-Register the `prpl_item_sync` plugin in your Roda application:
+Register the `propel_item_sync` plugin in your Roda application:
 
 ```ruby
-require 'prpl'
+require 'propel'
 require 'roda'
 
 class App < Roda
-  plugin :prpl_item_sync
+  plugin :propel_item_sync
 
   route do |r|
-    r.prpl_item_sync_route
+    r.propel_item_sync_route
     # Other routes...
   end
 end
@@ -511,13 +511,13 @@ curl -X POST http://yourapp.com/sync -H "Content-Type: application/json" -d '{
 
 ## Example Usage
 
-Below is a comprehensive example demonstrating how to integrate and utilize various features of the Prpl gem.
+Below is a comprehensive example demonstrating how to integrate and utilize various features of the Propel gem.
 
 1. **Setup Shopify Session:**
 
    ```ruby
    require 'shopify_api'
-   require 'prpl'
+   require 'propel'
 
    session = ShopifyAPI::Auth::Session.new(
      shop: "your-development-store.myshopify.com",
@@ -529,7 +529,7 @@ Below is a comprehensive example demonstrating how to integrate and utilize vari
 2. **Fetch and Sync Products:**
 
    ```ruby
-   service = Prpl::Services::Items::SyncService.new(logger: Prpl.logger)
+   service = Propel::Services::Items::SyncService.new(logger: Propel.logger)
    shopify_items = service.fetch_shopify_items
    sync_result = service.sync({ "items" => shopify_items })
 
@@ -543,7 +543,7 @@ Below is a comprehensive example demonstrating how to integrate and utilize vari
 3. **Adjust Inventory:**
 
    ```ruby
-   result = Prpl::Services::Inventory::Adjuster.adjust(
+   result = Propel::Services::Inventory::Adjuster.adjust(
      variant: variant_instance,
      quantity: 5
    )
@@ -558,9 +558,9 @@ Below is a comprehensive example demonstrating how to integrate and utilize vari
 4. **Generate a QR Code PDF:**
 
    ```ruby
-   qr_code_data = Prpl::Pdf::QrCodeData.new(variant_instance, validator)
-   qr_image = Prpl::Pdf::QrCodeImage.new(qr_code_data.product_url)
-   pdf_generator = Prpl::Pdf::QrCodePdfGenerator.new(qr_image, qr_code_data)
+   qr_code_data = Propel::Pdf::QrCodeData.new(variant_instance, validator)
+   qr_image = Propel::Pdf::QrCodeImage.new(qr_code_data.product_url)
+   pdf_generator = Propel::Pdf::QrCodePdfGenerator.new(qr_image, qr_code_data)
 
    pdf_data = pdf_generator.generate_pdf('qr_label.pdf')
    File.open('qr_label.pdf', 'wb') { |f| f.write(pdf_data) }
@@ -569,7 +569,7 @@ Below is a comprehensive example demonstrating how to integrate and utilize vari
 5. **Perform a Product Similarity Search:**
 
    ```ruby
-   similarity_search = Prpl::Services::Search::Similarity.new(
+   similarity_search = Propel::Services::Search::Similarity.new(
      query: "comfortable running shoes",
      scope: Product.all
    )
@@ -607,7 +607,7 @@ require 'graphql'
 require 'graphql/client'
 require 'graphql/client/http'
 
-module Prpl
+module Propel
   module Config
     module Templates
       module <ModuleName>

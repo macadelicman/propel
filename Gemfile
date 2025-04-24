@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in prpl.gemspec
+# Specify your gem's dependencies in propel.gemspec
 gemspec
 
 gem "rake"
