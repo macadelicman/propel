@@ -1,4 +1,6 @@
 # lib/propel/pdf/barcode_generator.rb
+require_relative 'base_generator'
+
 module Propel
   module Pdf
     class BarcodeGenerator < BaseGenerator

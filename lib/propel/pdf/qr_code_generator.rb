@@ -1,4 +1,6 @@
 # lib/propel/pdf/qr_code_generator.rb
+require_relative 'base_generator'
+
 module Propel
   module Pdf
     class QrCodeGenerator < BaseGenerator

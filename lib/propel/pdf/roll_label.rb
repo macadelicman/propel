@@ -1,4 +1,6 @@
 # lib/propel/pdf/generators/roll_label.rb
+require_relative 'base_generator'
+
 module Propel
   module PDF
 
